@@ -4,7 +4,7 @@ import logging
 import discord
 from discord.ext import commands
 
-logging.basicConfig(fomrat="%(asctime)s %(name)s:%(levelname)-8s %(message)s",
+logging.basicConfig(format="%(asctime)s %(name)s:%(levelname)-8s %(message)s",
         filename="/var/log/raincord.log", level=logging.INFO)
 
 if not discord.opus.is_loaded():
