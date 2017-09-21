@@ -72,6 +72,7 @@ class Rain:
         """Join the curent channel and start playing rain."""
         chan = ctx.message.author.voice_channel
         if chan is None:
+            await self.bot.delete_message(ctx.message)
             await self.bot.say('You are not in a voice channel.')
             return False
         state = self.get_voice_state(ctx.message.server)
@@ -82,6 +83,7 @@ class Rain:
 
         await self._play(ctx, state)
 
+        await self.bot.delete_message(ctx.message)
         logging.info('join,{},{}'.format(ctx.message.author.name,
             ctx.message.server.name))
         return True
@@ -94,6 +96,7 @@ class Rain:
         state.audio_player.cancel()
         del self.voice_states[server.id]
         await state.voice.disconnect()
+        await self.bot.delete_message(ctx.message)
         logging.info('leave,{},{}'.format(ctx.message.author.name,
             ctx.message.server.name))
 
