@@ -48,28 +48,17 @@ class Rain:
 
         return state
 
-    async def _play(self, ctx, state):
+    async def _play(self, ctx, sound):
         opts = {
                 'default_search': 'auto',
                 'quiet': True,
                 }
-        rain_sounds = "https://www.youtube.com/watch?v=tP0zE1zXTVA"
-        try:
-            player = await state.voice.create_ytdl_player(rain_sounds,
-                    ytdl_options=opts, after=state.toggle_next)
-        except Exception as e:
-            await self.bot.send_message(ctx.message.channel,
-                    "Unable to play rain: {}: {}".format(type(e).__name__, e))
-        else:
-            player.volume = 0.6
-            entry = VoiceEntry(ctx.message, player)
-            await state.songs.put(entry)
-
-
-
-    @commands.command(pass_context=True, no_pm=True)
-    async def join(self, ctx):
-        """Join the curent channel and start playing rain."""
+        sounds = {
+                'rain': 'https://www.youtube.com/watch?v=tP0zE1zXTVA',
+                'ocean': 'https://www.youtube.com/watch?v=f77SKdyn-1Y',
+                'city': 'https://www.youtube.com/watch?v=cDWZkXjDYsc',
+                'jungle': 'https://www.youtube.com/watch?v=QE_jOCqKE3w',
+                }
         chan = ctx.message.author.voice_channel
         if chan is None:
             await self.bot.delete_message(ctx.message)
@@ -81,12 +70,39 @@ class Rain:
         else:
             await state.voice.move_to(chan)
 
-        await self._play(ctx, state)
-
+        try:
+            player = await state.voice.create_ytdl_player(sounds[sound],
+                    ytdl_options=opts, after=state.toggle_next)
+        except Exception as e:
+            await self.bot.send_message(ctx.message.channel,
+                    "Unable to play {}: {}: {}".format(sound, type(e).__name__, e))
+        else:
+            player.volume = 0.6
+            entry = VoiceEntry(ctx.message, player)
+            await state.songs.put(entry)
         await self.bot.delete_message(ctx.message)
-        logging.info('join,{},{}'.format(ctx.message.author.name,
-            ctx.message.server.name))
-        return True
+        logging.info('play,{0.author.name},playing {1} in {0.server.name}'.format(ctx.message,
+            sound))
+
+    @commands.command(pass_context=True, no_pm=True)
+    async def rain(self, ctx):
+        """Join the curent channel and start playing rain."""
+        await self._play(ctx, 'rain')
+
+    @commands.command(pass_context=True, no_pm=True)
+    async def ocean(self, ctx):
+        """Join the curent channel and start playing rain."""
+        await self._play(ctx, 'ocean')
+
+    @commands.command(pass_context=True, no_pm=True)
+    async def city(self, ctx):
+        """Join the curent channel and start playing rain."""
+        await self._play(ctx, 'city')
+
+    @commands.command(pass_context=True, no_pm=True)
+    async def jungle(self, ctx):
+        """Join the curent channel and start playing rain."""
+        await self._play(ctx, 'jungle')
 
     @commands.command(pass_context=True, no_pm=True)
     async def leave(self, ctx):
