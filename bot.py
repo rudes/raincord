@@ -97,22 +97,22 @@ class Rain:
 
     @commands.command(pass_context=True, no_pm=True)
     async def rain(self, ctx):
-        """Join the curent channel and start playing rain."""
+        """Join the curent channel and start playing rain sounds."""
         await self._play(ctx, 'rain')
 
     @commands.command(pass_context=True, no_pm=True)
     async def ocean(self, ctx):
-        """Join the curent channel and start playing rain."""
+        """Join the curent channel and start playing ocean sounds."""
         await self._play(ctx, 'ocean')
 
     @commands.command(pass_context=True, no_pm=True)
     async def city(self, ctx):
-        """Join the curent channel and start playing rain."""
+        """Join the curent channel and start playing city sounds."""
         await self._play(ctx, 'city')
 
     @commands.command(pass_context=True, no_pm=True)
     async def jungle(self, ctx):
-        """Join the curent channel and start playing rain."""
+        """Join the curent channel and start playing jungle sounds."""
         await self._play(ctx, 'jungle')
 
     @commands.command(pass_context=True, no_pm=True)
