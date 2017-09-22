@@ -65,7 +65,7 @@ class Rain:
                 'rain': 'https://www.youtube.com/watch?v=tP0zE1zXTVA',
                 'ocean': 'https://www.youtube.com/watch?v=7F-F8-qHmq0',
                 'city': 'https://www.youtube.com/watch?v=cDWZkXjDYsc',
-                'jungle': 'https://www.youtube.com/watch?v=QE_jOCqKE3w',
+                'jungle': 'https://www.youtube.com/watch?v=bv7ogWz7zGQ',
                 }
         chan = ctx.message.author.voice_channel
         if chan is None:
