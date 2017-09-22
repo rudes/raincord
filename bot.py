@@ -25,6 +25,14 @@ class VoiceState:
         self.bot = bot
         self.audio_player = self.bot.loop.create_task(self.audio_player_task())
 
+    def is_playing(self):
+        if self.voice is None or self.current is None:
+            return False
+        return not self.current.player.is_done()
+
+    def skip(self):
+        self.player.stop()
+
     def toggle_next(self):
         self.bot.loop.call_soon_threadsafe(self.play_next_song.set)
 
@@ -55,7 +63,7 @@ class Rain:
                 }
         sounds = {
                 'rain': 'https://www.youtube.com/watch?v=tP0zE1zXTVA',
-                'ocean': 'https://www.youtube.com/watch?v=f77SKdyn-1Y',
+                'ocean': 'https://www.youtube.com/watch?v=7F-F8-qHmq0',
                 'city': 'https://www.youtube.com/watch?v=cDWZkXjDYsc',
                 'jungle': 'https://www.youtube.com/watch?v=QE_jOCqKE3w',
                 }
@@ -69,6 +77,9 @@ class Rain:
             state.voice = await self.bot.join_voice_channel(chan)
         else:
             await state.voice.move_to(chan)
+
+        if state.is_playing():
+            state.skip()
 
         try:
             player = await state.voice.create_ytdl_player(sounds[sound],
