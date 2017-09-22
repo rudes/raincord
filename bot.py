@@ -31,7 +31,7 @@ class VoiceState:
         return not self.current.player.is_done()
 
     def skip(self):
-        self.player.stop()
+        self.current.player.stop()
 
     def toggle_next(self):
         self.bot.loop.call_soon_threadsafe(self.play_next_song.set)
