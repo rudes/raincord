@@ -112,7 +112,7 @@ class Rain:
         await self._play(ctx, 'city')
 
     @commands.command(pass_context=True, no_pm=True)
-    async def city(self, ctx):
+    async def fire(self, ctx):
         """Join the curent channel and start playing fireplace sounds."""
         await self._play(ctx, 'fire')
 
