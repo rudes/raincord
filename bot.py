@@ -64,6 +64,7 @@ class Rain:
         sounds = {
                 'rain': 'https://www.youtube.com/watch?v=tP0zE1zXTVA',
                 'ocean': 'https://www.youtube.com/watch?v=7F-F8-qHmq0',
+                'fire': 'https://www.youtube.com/watch?v=L_LUpnjgPso',
                 'city': 'https://www.youtube.com/watch?v=cDWZkXjDYsc',
                 'jungle': 'https://www.youtube.com/watch?v=bv7ogWz7zGQ',
                 }
@@ -109,6 +110,11 @@ class Rain:
     async def city(self, ctx):
         """Join the curent channel and start playing city sounds."""
         await self._play(ctx, 'city')
+
+    @commands.command(pass_context=True, no_pm=True)
+    async def city(self, ctx):
+        """Join the curent channel and start playing fireplace sounds."""
+        await self._play(ctx, 'fire')
 
     @commands.command(pass_context=True, no_pm=True)
     async def jungle(self, ctx):
